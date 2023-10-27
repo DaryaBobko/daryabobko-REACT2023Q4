@@ -1,9 +1,9 @@
-import ListItem from "./components/CardItem/ListItem";
-import SearchPanel from "./components/SearchPanel/SearchPanel";
-import SearchButton from "./components/SearchButton/SearchButton";
+import ListItem from './components/ListItem/ListItem';
+import SearchPanel from './components/SearchPanel/SearchPanel';
+import SearchButton from './components/SearchButton/SearchButton';
 
-import "./App.css";
-import "./styles/space.scss";
+import './App.scss';
+import './styles/space.scss';
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-/* @import "./components/CardItem/CardItem.scss"; */
+@import './styles/variables.scss';
 
 #root {
   margin: 0 auto;
@@ -11,7 +11,7 @@
 }
 
 .content {
-  border-top: 1px solid #E8E8EE;
+  border-top: 1px solid $color-gray-light;
 }
 
 .container {

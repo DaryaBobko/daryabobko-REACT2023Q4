@@ -1,5 +1,5 @@
-import { Component } from "react";
-import "./ListItem.scss";
+import { Component } from 'react';
+import './ListItem.scss';
 
 type ListItemProps = {
   title: string;

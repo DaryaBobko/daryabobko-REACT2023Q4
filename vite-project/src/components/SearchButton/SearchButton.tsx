@@ -1,9 +1,9 @@
-import { Component } from "react";
-import "./SearchButton.scss";
+import { Component } from 'react';
+import './SearchButton.scss';
 
 class SearchButton extends Component {
   render() {
-    const label = "Search";
+    const label = 'Search';
 
     return (
       <button type="button" className="search-button">
