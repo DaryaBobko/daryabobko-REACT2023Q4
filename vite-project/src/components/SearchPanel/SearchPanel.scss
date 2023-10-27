@@ -1,0 +1,14 @@
+.input-search {
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  border: 1px solid #E8E8EE;
+  color: #8C8C94;
+  padding: 0 0.5rem;
+  flex: auto;
+
+  &:focus-visible {
+    border: 1px solid #3898ec;
+    outline: none;
+    box-shadow: none;
+  }
+}
