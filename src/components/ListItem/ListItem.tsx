@@ -1,19 +1,23 @@
 import { Component } from 'react';
 import './ListItem.scss';
+import { Animal } from '../../models/AnimalSearchResult';
+import animalsImg from '../../assets/animals.jpg';
 
-type ListItemProps = {
-  title: string;
-  description: string;
-};
+type ListItemProps = Pick<Animal, 'uid' | 'name' | 'earthAnimal'>;
 
 class ListItem extends Component<ListItemProps> {
   render() {
-    const { title, description } = this.props;
+    const { uid, name, earthAnimal } = this.props;
 
     return (
-      <li className="mv-6">
-        <h3 className="list-item-title">{title}</h3>
-        <p className="list-item-description">{description}</p>
+      <li className="list-item" key={uid}>
+        <img src={animalsImg} className="list-item-img" alt="animals" />
+        <div>
+          <h3 className="list-item-title">{name}</h3>
+          <p className="list-item-description">
+            {earthAnimal ? '' : 'extinct species'}
+          </p>
+        </div>
       </li>
     );
   }
