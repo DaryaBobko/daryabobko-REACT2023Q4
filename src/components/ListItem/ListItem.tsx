@@ -14,8 +14,12 @@ class ListItem extends Component<ListItemProps> {
         <img src={animalsImg} className="list-item-img" alt="animals" />
         <div>
           <h3 className="list-item-title">{name}</h3>
+          <p className="list-item-subtitle">
+            {earthAnimal ? '' : 'extinct specie'}
+          </p>
           <p className="list-item-description">
-            {earthAnimal ? '' : 'extinct species'}
+            No additional information available. More detailed information about
+            a specific animal can be obtained from the relevant sources
           </p>
         </div>
       </li>
