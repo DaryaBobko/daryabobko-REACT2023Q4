@@ -8,11 +8,14 @@ import './App.scss';
 import './styles/space.scss';
 import { Animal, AnimalSearchResult } from './models/AnimalSearchResult';
 import { ANIMAL_SEARCH_VALUE } from './constants';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import CustomError from './components/CustomError/CustomError';
 
 type AppState = {
   animalsSearchResult: AnimalSearchResult | null;
   value: string;
   filteredAnimals: Animal[];
+  isShowError: boolean;
 };
 
 class App extends Component<unknown, AppState> {
@@ -20,6 +23,7 @@ class App extends Component<unknown, AppState> {
     animalsSearchResult: null,
     value: localStorage.getItem(ANIMAL_SEARCH_VALUE) || '',
     filteredAnimals: [],
+    isShowError: false,
   };
 
   onSearchChange = (value: string) => {
@@ -64,17 +68,22 @@ class App extends Component<unknown, AppState> {
     return [];
   };
 
+  showError = () => {
+    this.setState({ isShowError: !this.state.isShowError });
+  };
+
   render() {
     return (
-      <>
+      <ErrorBoundary>
         <div className="container header">
-          <Input
-            onSearchChange={this.onSearchChange}
-            value={this.state.value}
-          />
-          <div className="mh-4">
-            <Button onClick={this.showFilteredItem} />
+          <div className="search-panel">
+            <Input
+              onSearchChange={this.onSearchChange}
+              value={this.state.value}
+            />
+            <Button onClick={this.showFilteredItem}>Search</Button>
           </div>
+          <Button onClick={this.showError}>Throw error</Button>
         </div>
         <div className="content pv-4">
           <div className="container">
@@ -90,7 +99,9 @@ class App extends Component<unknown, AppState> {
             </ul>
           </div>
         </div>
-      </>
+
+        {this.state.isShowError && <CustomError />}
+      </ErrorBoundary>
     );
   }
 }

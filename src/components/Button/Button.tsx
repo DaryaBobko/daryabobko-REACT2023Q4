@@ -3,15 +3,14 @@ import './Button.scss';
 
 type ButtonProps = {
   onClick?: () => void;
+  children: string;
 };
 
 class Button extends Component<ButtonProps> {
   render() {
-    const label = 'Search';
-
     return (
       <button type="button" className="button" onClick={this.props.onClick}>
-        {label}
+        {this.props.children}
       </button>
     );
   }
