@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+.list-item {
+  border: 1px solid $color-gray-light;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    gap: 0.75rem;
+    min-height: 5rem;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 300px;
+    justify-content: flex-start;
+}
+
+.list-item-title {
+  font-size: 1.25rem;
+  margin: 0 0.5rem 0 0;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.list-item-subtitle  {
+  overflow: hidden;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  font-size: 1rem;
+}
+
+.list-item-description {
+  font-size: 0.75rem;
+}
+
+.list-item-img {
+  width: 3rem;
+  border: 1px solid $color-gray-light;
+  border-radius: 8px;
+}
