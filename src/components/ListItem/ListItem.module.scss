@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.list-item {
+.listItem {
   border: 1px solid $color-gray-light;
     border-radius: 0.5rem;
     padding: 0.5rem;
@@ -13,7 +13,7 @@
     justify-content: flex-start;
 }
 
-.list-item-title {
+.title {
   font-size: 1.25rem;
   margin: 0 0.5rem 0 0;
   text-overflow: ellipsis;
@@ -22,7 +22,7 @@
   white-space: nowrap;
 }
 
-.list-item-subtitle  {
+.subtitle  {
   overflow: hidden;
   text-transform: uppercase;
   text-overflow: ellipsis;
@@ -32,11 +32,11 @@
   font-size: 1rem;
 }
 
-.list-item-description {
+.description {
   font-size: 0.75rem;
 }
 
-.list-item-img {
+.img {
   width: 3rem;
   border: 1px solid $color-gray-light;
   border-radius: 8px;

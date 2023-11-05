@@ -19,13 +19,13 @@
   max-width: 1280px;
 }
 
-.list-wrapper {
+.listWrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
 
-.search-panel {
+.searchPanel {
   width: 50%;
   display: flex;
 
@@ -38,4 +38,19 @@
     border-bottom-left-radius: 0;
     border-top-left-radius:0;
   }
+}
+
+.spinner {
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 5rem auto;
+  border: 0.25rem solid $color-gray-light;
+  border-top: 0.25rem solid $color-blue;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
