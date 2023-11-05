@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { ANIMAL_SEARCH_VALUE } from './constants';
@@ -12,6 +12,7 @@ import Button from './components/Button/Button';
 
 import styles from './App.module.scss';
 import './styles/space.scss';
+import PaginationItem from './components/PaginationItem/PaginationItem';
 
 const App: React.FC = () => {
   const [filteredAnimals, setFilteredAnimals] = useState([] as Animal[]);
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   );
   const [isShowError, setShowError] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const showError = () => {
     setShowError((prevState) => !prevState);
@@ -48,12 +50,10 @@ const App: React.FC = () => {
     getAnimals();
   };
 
-  useEffect(() => {
-    getAnimals();
-  });
-
-  const getAnimals = () => {
-    fetch('https://stapi.co/api/v1/rest/animal/search')
+  const getAnimals = useCallback(() => {
+    fetch(
+      `https://stapi.co/api/v1/rest/animal/search?pageNumber=${pageNumber}&pageSize=12`
+    )
       .then((response) => response.json())
       .then((animalsSearchResult: AnimalSearchResult) => {
         setFilteredAnimals(search(animalsSearchResult.animals, value));
@@ -62,7 +62,11 @@ const App: React.FC = () => {
         console.warn(error);
       })
       .finally(() => setLoading(false));
-  };
+  }, [pageNumber, value]);
+
+  useEffect(() => {
+    getAnimals();
+  }, [pageNumber, getAnimals]);
 
   return (
     <ErrorBoundary>
@@ -86,7 +90,17 @@ const App: React.FC = () => {
           )}
         </div>
       </div>
-
+      <ul className={styles.pagination}>
+        {[...Array(5)].map((_, i) => (
+          <PaginationItem
+            onClick={() => setPageNumber(i)}
+            key={i}
+            className={pageNumber === i ? 'active' : ''}
+          >
+            {i + 1}
+          </PaginationItem>
+        ))}
+      </ul>
       {isShowError && <CustomError />}
     </ErrorBoundary>
   );
