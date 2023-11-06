@@ -3,11 +3,11 @@ import styles from './Input.module.scss';
 
 type InputProps = {
   onSearchChange: (value: string) => void;
-  value: string;
+  value: string | number;
 };
 
 const Input: React.FC<InputProps> = ({ onSearchChange, value }) => {
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     onSearchChange(event.target.value);
   };
 
@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({ onSearchChange, value }) => {
       className={styles.input}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}
+      onChange={onChangeInput}
     />
   );
 };

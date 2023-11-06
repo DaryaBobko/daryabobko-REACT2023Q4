@@ -4,6 +4,11 @@
   color: #1A1A1B;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+
 body {
   margin: 0;
   min-width: 320px;
@@ -24,7 +29,20 @@ p {
   margin: 0;
 }
 
-.active {
+.active-btn {
   background-color: #3898ece6;
   color: white;
+}
+
+.active {
+
+}
+
+.wrapper-list-item {
+  color: #1A1A1B;
+
+  border-radius: 0.5rem;
+  gap: 0.75rem;
+  display: flex;
+  flex: 1 0 300px;
 }
