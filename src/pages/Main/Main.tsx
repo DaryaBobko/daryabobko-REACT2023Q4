@@ -28,7 +28,7 @@ const Main: React.FC = () => {
     Number(searchParams.get('pageSize')) || 8
   );
   const [pageNumber, setPageNumber] = useState(
-    Number(searchParams.get('pageNumber')) || 0
+    Number(searchParams.get('pageNumber')) || 1
   );
 
   const showError = () => {

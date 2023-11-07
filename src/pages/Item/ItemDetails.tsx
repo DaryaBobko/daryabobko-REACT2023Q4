@@ -26,7 +26,7 @@ const ItemDetails: React.FC = () => {
 
   return (
     !loading &&
-    uid && (
+    uid !== 'daryabobko-REACT2023Q4' && (
       <div className={styles.itemDetails}>
         <ListItem {...animal} />
         <CustomNavLink to="/">close</CustomNavLink>
