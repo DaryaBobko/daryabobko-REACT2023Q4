@@ -7,6 +7,7 @@ import {
 
 import ItemDetails from './pages/Item/ItemDetails';
 import RootLayout from './components/RootLayout/RootLayout';
+import NotFound from './pages/404/404';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,6 +15,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />}>
         <Route path=":uid" element={<ItemDetails />}></Route>
       </Route>
+      <Route path="*" element={<NotFound />}></Route>
     </Route>
   )
 );
