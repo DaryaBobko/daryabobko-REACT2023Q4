@@ -5,13 +5,13 @@ import classNames from 'classnames';
 import styles from './CustomNavLink.module.scss';
 
 type CustomNavLinkProps = {
-  to: string;
+  to?: string;
   children: ReactNode;
   className?: string;
 };
 
 const CustomNavLink: React.FC<CustomNavLinkProps> = ({
-  to,
+  to = '/',
   children,
   className,
 }) => {
