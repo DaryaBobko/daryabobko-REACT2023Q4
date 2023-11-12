@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
-import Context from './Context';
+import InputContext, { InputContextType } from './InputContext';
+import { ANIMAL_SEARCH_VALUE } from '../constants';
 
-const Provider = ({ children }) => {
-  const [state, setState] = useState(initialState);
+type ProviderProps = {
+  children: React.ReactNode;
+};
 
-  const updateState = (newState) => {
-    setState(newState);
+const Provider = ({ children }: ProviderProps) => {
+  const [value, setValue1] = useState(
+    localStorage.getItem(ANIMAL_SEARCH_VALUE) || ''
+  );
+
+  const setValue = (newValue: string) => {
+    setValue1(newValue);
+  };
+
+  const contextValue: InputContextType = {
+    value,
+    setValue,
   };
 
   return (
-    <Context.Provider value={{ state, updateState }}>
+    <InputContext.Provider value={contextValue}>
       {children}
-    </Context.Provider>
+    </InputContext.Provider>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useSearchParams } from 'react-router-dom';
 
@@ -14,12 +14,16 @@ import styles from './Main.module.scss';
 import '../../styles/space.scss';
 import PaginationItem from '../../components/PaginationItem/PaginationItem';
 import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
+import InputContext from '../../context/InputContext';
 
 const Main: React.FC = () => {
   const [filteredAnimals, setFilteredAnimals] = useState<Animal[]>([]);
-  const [value, setValue] = useState(
-    localStorage.getItem(ANIMAL_SEARCH_VALUE) || ''
-  );
+
+  const { value, setValue } = useContext(InputContext) || {
+    value: '',
+    setValue: () => {},
+  };
+
   const [isShowError, setShowError] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
