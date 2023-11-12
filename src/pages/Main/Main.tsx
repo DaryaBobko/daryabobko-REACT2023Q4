@@ -16,7 +16,7 @@ import PaginationItem from '../../components/PaginationItem/PaginationItem';
 import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
 
 const Main: React.FC = () => {
-  const [filteredAnimals, setFilteredAnimals] = useState([] as Animal[]);
+  const [filteredAnimals, setFilteredAnimals] = useState<Animal[]>([]);
   const [value, setValue] = useState(
     localStorage.getItem(ANIMAL_SEARCH_VALUE) || ''
   );

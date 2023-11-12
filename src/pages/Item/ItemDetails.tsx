@@ -10,7 +10,7 @@ import { Animal, AnimalDetails } from '../../models/AnimalSearchResult';
 const ItemDetails: React.FC = () => {
   const { uid } = useParams();
   const [loading, setLoading] = useState(true);
-  const [animal, setAnimal] = useState({} as Animal);
+  const [animal, setAnimal] = useState<Animal | null>(null);
 
   useEffect(() => {
     fetch(`https://stapi.co/api/v1/rest/animal?uid=${uid}`)
@@ -26,7 +26,8 @@ const ItemDetails: React.FC = () => {
 
   return (
     !loading &&
-    uid !== 'daryabobko-REACT2023Q4' && (
+    uid !== 'daryabobko-REACT2023Q4' &&
+    animal && (
       <div className={styles.itemDetails}>
         <ListItem {...animal} />
         <CustomNavLink to="/">close</CustomNavLink>

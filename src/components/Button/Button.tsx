@@ -7,12 +7,7 @@ export type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
   return (
-    <button
-      type="button"
-      className={styles.button}
-      onClick={onClick}
-      // data-id="text"
-    >
+    <button type="button" className={styles.button} onClick={onClick}>
       {children}
     </button>
   );

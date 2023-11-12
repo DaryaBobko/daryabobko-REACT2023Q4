@@ -11,13 +11,15 @@ describe('Button', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test('onClick is invoked on user click', () => {
+  test('onClick is invoked on user click', async () => {
     const onClickMock = jest.fn();
     render(<Button onClick={onClickMock}>{title}</Button>);
 
     const button = screen.getByText(title);
+    expect(button).toBeTruthy();
+    expect(button).toBeInTheDocument();
 
-    userEvent.click(button);
-    // expect(onClickMock).toHaveBeenCalled();
+    await userEvent.click(button);
+    expect(onClickMock).toHaveBeenCalled();
   });
 });

@@ -1,6 +1,5 @@
 import styles from './ListItem.module.scss';
 import { Animal } from '../../models/AnimalSearchResult';
-import animalsImg from '../../assets/animals.jpg';
 
 type ListItemProps = Pick<
   Animal,
@@ -16,7 +15,6 @@ const ListItem: React.FC<ListItemProps> = ({
 }) => {
   return (
     <li className={styles.listItem}>
-      <img src={animalsImg} className={styles.img} alt="animals" />
       <div>
         <h3 className={styles.title}>{name}</h3>
         <p className={styles.subtitle}>{earthAnimal ? '' : 'extinct specie'}</p>
