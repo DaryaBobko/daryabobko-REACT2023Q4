@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+
+.itemDetails {
+    padding: 6.7rem 2rem 0;
+    flex: 1 0 23.125rem;
+    width: 40%;
+    background-color: $color-blue-light;
+    display: flex;
+
+
+    >li {
+        border: none;
+        padding: 0;
+    }
+}
