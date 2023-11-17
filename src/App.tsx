@@ -8,7 +8,8 @@ import {
 import ItemDetails from './pages/Item/ItemDetails';
 import RootLayout from './components/RootLayout/RootLayout';
 import NotFound from './pages/404/404';
-import Provider from './context/Provider';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +24,7 @@ const router = createBrowserRouter(
 
 const App: React.FC = () => {
   return (
-    <Provider>
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   );
