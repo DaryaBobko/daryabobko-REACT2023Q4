@@ -23,6 +23,8 @@ import {
   showError,
   setOriginalList,
   calculateFilteredList,
+  setLoading,
+  showLoading,
 } from '../../animalSlice';
 import { RootState } from '../../store/store';
 import { useGetAnimalsQuery } from '../../utils/getAnimals';
@@ -39,6 +41,7 @@ const Main: React.FC = () => {
   const filteredAnimals = useSelector((state: RootState) =>
     selectFilteredList(state)
   );
+  const loading = useSelector((state: RootState) => showLoading(state));
 
   const pageSize = Number(searchParams.get('pageSize')) || 32;
   const pageNumber = Number(searchParams.get('pageNumber')) || 1;
@@ -55,7 +58,8 @@ const Main: React.FC = () => {
   useEffect(() => {
     dispatch(setOriginalList(animalsSearchResult?.animals || []));
     dispatch(calculateFilteredList());
-  }, [dispatch, animalsSearchResult]);
+    dispatch(setLoading(isFetching));
+  }, [dispatch, animalsSearchResult, isFetching]);
 
   const onSearchChange = (value: string) => {
     dispatch(setSearch(value));
@@ -74,6 +78,13 @@ const Main: React.FC = () => {
       pageSize: `${inputValue}`,
     });
   };
+
+  useEffect(() => {
+    setSearchParams({
+      pageNumber: `${pageNumber}`,
+      pageSize: `${pageSize}`,
+    });
+  }, [pageNumber, pageSize, setSearchParams]);
 
   return (
     <div className={styles.containerWrapper}>
@@ -96,7 +107,7 @@ const Main: React.FC = () => {
           <input value={pageSize} onChange={itemsToShowChange} />
         </div>
         <div className={styles.container}>
-          {isFetching ? (
+          {loading ? (
             <div className={styles.spinner} />
           ) : (
             <ul className={styles.listWrapper}>

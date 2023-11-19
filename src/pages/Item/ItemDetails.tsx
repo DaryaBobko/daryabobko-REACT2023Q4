@@ -25,12 +25,18 @@ const ItemDetails: React.FC = () => {
   }, [uid]);
 
   return (
-    !loading &&
-    uid !== 'daryabobko-REACT2023Q4' &&
-    animal && (
+    uid !== 'daryabobko-REACT2023Q4' && (
       <div className={styles.itemDetails}>
-        <ListItem {...animal} />
-        <CustomNavLink to="/">close</CustomNavLink>
+        {loading ? (
+          <div className={styles.spinner} />
+        ) : (
+          animal && (
+            <>
+              <ListItem {...animal} />
+              <CustomNavLink to="/">close</CustomNavLink>
+            </>
+          )
+        )}
       </div>
     )
   );

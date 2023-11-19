@@ -8,6 +8,7 @@ interface AnimalState {
   showError: boolean;
   originalList: Animal[];
   filteredList: Animal[];
+  loading: boolean;
 }
 
 const initialState: AnimalState = {
@@ -15,6 +16,7 @@ const initialState: AnimalState = {
   showError: false,
   originalList: [],
   filteredList: [],
+  loading: true,
 };
 
 const animalSlice = createSlice({
@@ -23,6 +25,9 @@ const animalSlice = createSlice({
   reducers: {
     setShowError: (state) => {
       state.showError = !state.showError;
+    },
+    setLoading: (state, { payload }: { type: string; payload: boolean }) => {
+      state.loading = payload;
     },
     setSearch: (state, { payload }: { type: string; payload: string }) => {
       state.valueSearch = payload;
@@ -47,6 +52,7 @@ const animalSlice = createSlice({
 
 export const {
   setShowError,
+  setLoading,
   setSearch,
   calculateFilteredList,
   setOriginalList,
@@ -65,5 +71,8 @@ export const selectFilteredList = (state: RootState) =>
 
 export const selectOriginalList = (state: RootState) =>
   selectAnimalSlice(state).originalList;
+
+export const showLoading = (state: RootState) =>
+  selectAnimalSlice(state).loading;
 
 export default animalSlice.reducer;
