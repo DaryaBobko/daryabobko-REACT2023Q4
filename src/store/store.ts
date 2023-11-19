@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../counterSlice';
+import animalReducer from '../animalSlice';
 import { api } from '../utils/getAnimals';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    animal: animalReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

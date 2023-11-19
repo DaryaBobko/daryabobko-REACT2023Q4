@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import classNames from 'classnames';
 import { useSearchParams } from 'react-router-dom';
 
 import { ANIMAL_SEARCH_VALUE } from '../../constants';
-import { Animal, AnimalSearchResult } from '../../models/AnimalSearchResult';
+import { Animal } from '../../models/AnimalSearchResult';
 
 import CustomError from '../../components/CustomError/CustomError';
 import ListItem from '../../components/ListItem/ListItem';
@@ -15,116 +15,88 @@ import '../../styles/space.scss';
 import PaginationItem from '../../components/PaginationItem/PaginationItem';
 import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInputValue, selectSearchValue } from '../../counterSlice';
+import {
+  setSearch,
+  selectSearchValue,
+  selectFilteredList,
+  setShowError,
+  showError,
+  setOriginalList,
+  calculateFilteredList,
+} from '../../animalSlice';
 import { RootState } from '../../store/store';
+import { useGetAnimalsQuery } from '../../utils/getAnimals';
 
 const Main: React.FC = () => {
   const dispatch = useDispatch();
-  const [filteredAnimals, setFilteredAnimals] = useState<Animal[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
-
-  const [isShowError, setShowError] = useState(false);
-  const [isLoading, setLoading] = useState(true);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [pageSize, setPageSize] = useState(
-    Number(searchParams.get('pageSize')) || 8
-  );
-  const [pageNumber, setPageNumber] = useState(
-    Number(searchParams.get('pageNumber')) || 1
-  );
 
   const searchValue = useSelector((state: RootState) =>
     selectSearchValue(state)
   );
+  const error = useSelector((state: RootState) => showError(state));
+  const filteredAnimals = useSelector((state: RootState) =>
+    selectFilteredList(state)
+  );
 
-  const showError = () => {
-    setShowError((prevState) => !prevState);
-  };
+  const pageSize = Number(searchParams.get('pageSize')) || 32;
+  const pageNumber = Number(searchParams.get('pageNumber')) || 1;
+
+  const {
+    data: animalsSearchResult,
+    isFetching,
+    isError,
+  } = useGetAnimalsQuery({
+    pageNumber,
+    pageSize,
+  });
+
+  useEffect(() => {
+    dispatch(setOriginalList(animalsSearchResult?.animals || []));
+    dispatch(calculateFilteredList());
+  }, [dispatch, animalsSearchResult]);
 
   const onSearchChange = (value: string) => {
-    dispatch(setInputValue(value));
+    dispatch(setSearch(value));
   };
 
-  const search = (animals: Animal[], value: string): Animal[] => {
-    if (value.length === 0) {
-      return animals;
-    }
+  const searchAnimals = () => {
+    window.localStorage.setItem(ANIMAL_SEARCH_VALUE, searchValue);
 
-    if (animals) {
-      return animals.filter((animal) => {
-        return animal.name.toLowerCase().includes(value.toLowerCase());
-      });
-    }
-
-    return [];
+    dispatch(calculateFilteredList());
   };
 
-  const showFilteredItem = () => {
-    localStorage.setItem(ANIMAL_SEARCH_VALUE, searchValue);
-    getAnimals();
-  };
-
-  const getAnimals = useCallback(() => {
-    fetch(
-      `https://stapi.co/api/v1/rest/animal/search?pageNumber=${pageNumber}&pageSize=${pageSize}`
-    )
-      .then((response) => response.json())
-      .then((animalsSearchResult: AnimalSearchResult) => {
-        setFilteredAnimals(search(animalsSearchResult.animals, searchValue));
-        setTotalPages(animalsSearchResult.page.totalPages);
-      })
-      .catch((error) => {
-        console.warn(error);
-      })
-      .finally(() => setLoading(false));
-  }, [pageNumber, searchValue, pageSize]);
-
-  useEffect(() => {
-    getAnimals();
-  }, [pageNumber, getAnimals]);
-
-  useEffect(() => {
-    setSearchParams(`pageNumber=${pageNumber}&pageSize=${pageSize}`);
-  }, [pageNumber, pageSize, setSearchParams]);
-
-  const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const itemsToShowChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = Number(event.currentTarget.value);
-    setPageSize(inputValue);
-    setPageNumber(1);
+    setSearchParams({
+      pageNumber: `${pageNumber}`,
+      pageSize: `${inputValue}`,
+    });
   };
 
-  function range(firstPage: number, lastPage: number) {
-    const pages = [];
-
-    for (let i = firstPage; i <= lastPage; i++) {
-      pages.push(i);
-    }
-
-    return pages;
-  }
-
-  // const count = useSelector((state: RootState) => selectCount(state));
-  const pages = range(1, totalPages);
   return (
     <div className={styles.containerWrapper}>
-      {/* <p>Count: {count}</p>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button> */}
       <div className={classNames(styles.container, styles.header)}>
         <div className={styles.searchPanel}>
-          <Input onSearchChange={onSearchChange} value={searchValue} />
-          <Button onClick={showFilteredItem}>Search</Button>
+          <Input
+            onSearchChange={onSearchChange}
+            value={searchValue}
+            testid="searchInput"
+          />
+          <Button onClick={searchAnimals} testid="searchButton">
+            Search
+          </Button>
         </div>
-        <Button onClick={showError}>Throw error</Button>
+        <Button onClick={() => dispatch(setShowError())}>Throw error</Button>
       </div>
       <div className={classNames(styles.content, 'pv-4')}>
         <div className={styles.wrapperInput}>
           <label> enter the number of cards elements </label>
-          <input value={pageSize} onChange={inputChange} />
+          <input value={pageSize} onChange={itemsToShowChange} />
         </div>
         <div className={styles.container}>
-          {isLoading ? (
+          {isFetching ? (
             <div className={styles.spinner} />
           ) : (
             <ul className={styles.listWrapper}>
@@ -141,20 +113,27 @@ const Main: React.FC = () => {
           )}
         </div>
       </div>
-      {totalPages > 1 && (
+
+      {animalsSearchResult && animalsSearchResult.page.totalPages > 1 && (
         <ul className={styles.pagination}>
-          {pages.map((page: number) => (
+          {[...Array(animalsSearchResult.page.totalPages)].map((_, i) => (
             <PaginationItem
-              onClick={() => setPageNumber(page)}
-              key={page}
-              className={pageNumber === page ? 'active-btn' : ''}
+              onClick={() => {
+                setSearchParams({
+                  pageNumber: `${i + 1}`,
+                  pageSize: `${pageSize}`,
+                });
+              }}
+              key={i}
+              className={pageNumber === i + 1 ? 'active-btn' : ''}
             >
-              {page}
+              {i + 1}
             </PaginationItem>
           ))}
         </ul>
       )}
-      {isShowError && <CustomError />}
+
+      {(error || isError) && <CustomError />}
     </div>
   );
 };

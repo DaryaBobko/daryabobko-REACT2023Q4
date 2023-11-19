@@ -6,12 +6,14 @@ export const api = createApi({
   endpoints: (builder) => ({
     getAnimals: builder.query<
       AnimalSearchResult,
-      { pageNumber: number; pageSize: number; searchValue: string }
+      { pageNumber: number; pageSize: number }
     >({
-      query: ({ pageNumber, pageSize, searchValue }) =>
-        `animal/search?pageNumber=${pageNumber}&pageSize=${pageSize}&searchValue=${searchValue}`,
+      query: ({ pageNumber, pageSize }) =>
+        `animal/search?pageNumber=${pageNumber}&pageSize=${pageSize}`,
     }),
   }),
 });
 
 export const { useGetAnimalsQuery } = api;
+
+export const { endpoints } = api;
