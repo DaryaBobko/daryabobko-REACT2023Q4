@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.button {
+  background-color: $color-blue;
+  color: $color-white;
+  border-radius: 0.375rem;
+  padding: 0.725rem 1.2rem;
+  font-size: 1rem;
+  border: 1px solid $color-blue;
+  
+  &:hover {
+    background-color: $color-white;
+    color: $color-blue;
+    border: 1px solid $color-blue;
+  }
+
+  &:focus {
+    border: 1px solid $color-blue;
+    outline: none;
+    box-shadow: none;
+  }
+}
