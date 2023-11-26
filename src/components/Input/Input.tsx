@@ -1,28 +1,28 @@
-import { ChangeEvent, Component } from 'react';
-import './Input.scss';
+import { ChangeEvent } from 'react';
+import styles from './Input.module.scss';
 
 type InputProps = {
   onSearchChange: (value: string) => void;
-  value: string;
+  value: string | number;
+  testid?: string;
 };
 
-class Input extends Component<InputProps> {
-  onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.props.onSearchChange(event.target.value);
+const Input: React.FC<InputProps> = ({ onSearchChange, value, testid }) => {
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    onSearchChange(event.target.value);
   };
 
-  render() {
-    const placeholder = 'Type here';
+  const placeholder = 'Type here';
 
-    return (
-      <input
-        className="input"
-        placeholder={placeholder}
-        value={this.props.value}
-        onChange={this.onChange}
-      />
-    );
-  }
-}
+  return (
+    <input
+      className={styles.input}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChangeInput}
+      data-testid={testid}
+    />
+  );
+};
 
 export default Input;
