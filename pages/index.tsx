@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useEffect } from 'react';
 import classNames from 'classnames';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 
 import { ANIMAL_SEARCH_VALUE } from '../constants';
 import { Animal } from '../models/AnimalSearchResult';
@@ -16,77 +16,91 @@ import styles from '../styles/Main.module.scss';
 // import '../../styles/space.scss';
 import PaginationItem from '../components/PaginationItem/PaginationItem';
 import CustomNavLink from '../components/CustomNavLink/CustomNavLink';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setSearch,
-  selectSearchValue,
-  selectFilteredList,
-  setShowError,
-  showError,
-  setOriginalList,
-  calculateFilteredList,
-  setLoading,
-  showLoading,
-} from '../animalSlice';
-import { RootState } from '../store/store';
-import { useGetAnimalsQuery } from '../utils/getAnimals';
+// import { useDispatch, useSelector } from 'react-redux';
+// import {
+//   setSearch,
+//   selectSearchValue,
+//   selectFilteredList,
+//   setShowError,
+//   showError,
+//   setOriginalList,
+//   calculateFilteredList,
+//   setLoading,
+//   showLoading,
+// } from '../animalSlice';
+// import { RootState } from '../store/store';
+// import { useGetAnimalsQuery } from '../utils/getAnimals';
 
 const Main: React.FC = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchValue = useSelector((state: RootState) =>
-    selectSearchValue(state)
-  );
-  const error = useSelector((state: RootState) => showError(state));
-  const filteredAnimals = useSelector((state: RootState) =>
-    selectFilteredList(state)
-  );
-  const loading = useSelector((state: RootState) => showLoading(state));
+  // const searchValue = useSelector((state: RootState) =>
+  //   selectSearchValue(state)
+  // );
+  const error = false;
+  // const error = useSelector((state: RootState) => showError(state));
+  // const filteredAnimals = useSelector((state: RootState) =>
+  //   selectFilteredList(state)
+  // );
+  // const loading = useSelector((state: RootState) => showLoading(state));
+  const loading = false;
 
-  const pageSize = Number(searchParams.get('pageSize')) || 32;
-  const pageNumber = Number(searchParams.get('pageNumber')) || 1;
+  const filteredAnimals = [
+    {
+      uid: 'jfjfjfjf',
+      name: 'string',
+      earthAnimal: true,
+      earthInsect: false,
+      avian: false,
+      canine: false,
+      feline: false,
+    },
+  ];
 
-  const {
-    data: animalsSearchResult,
-    isFetching,
-    isError,
-  } = useGetAnimalsQuery({
-    pageNumber,
-    pageSize,
-  });
+  const pageSize = 32;
+  const pageNumber = 1;
 
-  useEffect(() => {
-    dispatch(setOriginalList(animalsSearchResult?.animals || []));
-    dispatch(calculateFilteredList());
-    dispatch(setLoading(isFetching));
-  }, [dispatch, animalsSearchResult, isFetching]);
+  // const {
+  //   data: animalsSearchResult,
+  //   isFetching,
+  //   isError,
+  // } = useGetAnimalsQuery({
+  //   pageNumber,
+  //   pageSize,
+  // });
+
+  // useEffect(() => {
+  //   dispatch(setOriginalList(animalsSearchResult?.animals || []));
+  //   dispatch(calculateFilteredList());
+  //   dispatch(setLoading(isFetching));
+  // }, [dispatch, animalsSearchResult, isFetching]);
 
   const onSearchChange = (value: string) => {
-    dispatch(setSearch(value));
+    // dispatch(setSearch(value));
   };
 
+  const searchValue = 'hi';
   const searchAnimals = () => {
-    window.localStorage.setItem(ANIMAL_SEARCH_VALUE, searchValue);
-
-    dispatch(calculateFilteredList());
+    // window.localStorage.setItem(ANIMAL_SEARCH_VALUE, searchValue);
+    // dispatch(calculateFilteredList());
   };
 
   const itemsToShowChange = (event: React.FormEvent<HTMLInputElement>) => {
     const inputValue = Number(event.currentTarget.value);
-    setSearchParams({
-      pageNumber: `${pageNumber}`,
-      pageSize: `${inputValue}`,
-    });
+    // setSearchParams({
+    //   pageNumber: `${pageNumber}`,
+    //   pageSize: `${inputValue}`,
+    // });
   };
 
-  useEffect(() => {
-    setSearchParams({
-      pageNumber: `${pageNumber}`,
-      pageSize: `${pageSize}`,
-    });
-  }, [pageNumber, pageSize, setSearchParams]);
+  // useEffect(() => {
+  //   setSearchParams({
+  //     pageNumber: `${pageNumber}`,
+  //     pageSize: `${pageSize}`,
+  //   });
+  // }, [pageNumber, pageSize, setSearchParams]);
 
   return (
     <div className={styles.containerWrapper}>
@@ -101,7 +115,7 @@ const Main: React.FC = () => {
             Search
           </Button>
         </div>
-        <Button onClick={() => dispatch(setShowError())}>Throw error</Button>
+        <Button onClick={() => {}}>Throw error</Button>
       </div>
       <div className={classNames(styles.content, 'pv-4')}>
         <div className={styles.wrapperInput}>
@@ -127,26 +141,22 @@ const Main: React.FC = () => {
         </div>
       </div>
 
-      {animalsSearchResult && animalsSearchResult.page.totalPages > 1 && (
-        <ul className={styles.pagination}>
-          {[...Array(animalsSearchResult.page.totalPages)].map((_, i) => (
-            <PaginationItem
-              onClick={() => {
-                setSearchParams({
-                  pageNumber: `${i + 1}`,
-                  pageSize: `${pageSize}`,
-                });
-              }}
-              key={i}
-              className={pageNumber === i + 1 ? 'active-btn' : ''}
-            >
-              {i + 1}
-            </PaginationItem>
-          ))}
-        </ul>
-      )}
+      <ul className={styles.pagination}>
+        {[...Array(7)].map((_, i) => (
+          <PaginationItem
+            onClick={() => {
+              {
+              }
+            }}
+            key={i}
+            className={pageNumber === i + 1 ? 'active-btn' : ''}
+          >
+            {i + 1}
+          </PaginationItem>
+        ))}
+      </ul>
 
-      {(error || isError) && <CustomError />}
+      {error && <CustomError />}
     </div>
   );
 };

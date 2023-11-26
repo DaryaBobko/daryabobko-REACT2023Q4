@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 import { ReactNode } from 'react';
 import classNames from 'classnames';
 
@@ -17,9 +17,9 @@ const CustomNavLink: React.FC<CustomNavLinkProps> = ({
   className,
 }) => {
   return (
-    <NavLink to={to} className={classNames(styles.link, className)}>
+    <Link href={to} className={classNames(styles.link, className)}>
       {children}
-    </NavLink>
+    </Link>
   );
 };
 
