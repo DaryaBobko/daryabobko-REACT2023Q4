@@ -1,19 +1,19 @@
-import classNames from 'classnames';
 import CustomError from '../../components/CustomError/CustomError';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
 import styles from './Main.module.scss';
+import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
+import Button from '../../components/Button/Button';
 
 const Main: React.FC = () => {
   return (
-    <div className={styles.containerWrapper}>
-      <div className={classNames(styles.container, styles.header)}>
-        <div className={styles.searchPanel}>
-          <Input onChange={() => {}} value={''} />
-          <Button onClick={() => {}}>Search</Button>
-        </div>
-        <Button onClick={() => {}}>Throw error</Button>
-      </div>
+    <div className={styles.container}>
+      <CustomNavLink to="uncontrolled-components">
+        <Button>Uncontrolled components</Button>
+      </CustomNavLink>
+      <CustomNavLink to="react-hook-form">
+        <Button>React hook form</Button>
+      </CustomNavLink>
+
+      {/* <Button onClick={() => {}}>Throw error</Button> */}
 
       {false && <CustomError />}
     </div>
