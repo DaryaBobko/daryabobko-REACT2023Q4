@@ -23,10 +23,4 @@ Follow these instructions to get the app up and running locally!
    npm run dev
    ```
 
-   or
-
-   ```sh
-   npm run next
-   ```
-
-4. The app should be running and available at [http://localhost:5173/] or [http://localhost:3000/]
+4. The app should be running and available at [http://localhost:5173/]
