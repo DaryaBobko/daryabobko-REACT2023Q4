@@ -7,7 +7,6 @@ type FormInputProps = {
   label?: string;
   checked?: boolean;
   error?: string;
-  register?: any;
 };
 
 const FormCheckbox: React.FC<FormInputProps> = ({

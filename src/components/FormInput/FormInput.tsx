@@ -8,7 +8,6 @@ type FormInputProps = {
   placeholder?: string;
   label?: string;
   error?: string;
-  register?: any;
 };
 
 const FormInput: React.FC<FormInputProps> = ({

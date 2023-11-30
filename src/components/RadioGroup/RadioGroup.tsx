@@ -6,7 +6,6 @@ type FormInputProps = {
   error?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   checked?: string;
-  register?: any;
 };
 
 const FormInput: React.FC<FormInputProps> = ({

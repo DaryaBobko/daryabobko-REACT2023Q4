@@ -4,7 +4,6 @@ type SelectProps = {
   name: string;
   placeholder?: string;
   label?: string;
-  register?: any;
   error?: string;
 };
 
