@@ -7,6 +7,7 @@ type FormInputProps = {
   label?: string;
   checked?: boolean;
   error?: string;
+  register?: any;
 };
 
 const FormCheckbox: React.FC<FormInputProps> = ({
@@ -15,6 +16,7 @@ const FormCheckbox: React.FC<FormInputProps> = ({
   name,
   checked,
   error,
+  register,
 }) => {
   return (
     <div className={styles.field}>
@@ -25,6 +27,7 @@ const FormCheckbox: React.FC<FormInputProps> = ({
           name={name}
           onChange={onChange}
           checked={checked}
+          ref={register}
         />
         <label htmlFor={name}>{label}</label>
       </div>

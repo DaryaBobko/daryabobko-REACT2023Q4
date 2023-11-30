@@ -1,11 +1,14 @@
+import { ChangeEvent, FormEvent, useState } from 'react';
+
 import FormInput from '../../components/FormInput/FormInput';
 import Button from '../../components/Button/Button';
-import styles from './UncontrolledComponents.module.scss';
 import RadioGroup from '../../components/RadioGroup/RadioGroup';
 import FormCheckbox from '../../components/FormCheckbox/FormCheckbox';
 import FileUploader from '../../components/FileUploader/FileUploader';
 import Select from '../../components/Select/Select';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
+
+import styles from './UncontrolledComponents.module.scss';
 
 const UncontrolledComponents: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -153,6 +156,12 @@ const UncontrolledComponents: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <div>
+        <CustomNavLink className={styles.button} to={'/daryabobko-REACT2023Q4'}>
+          Home
+        </CustomNavLink>{' '}
+        / uncontrolled-components
+      </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <FormInput
           name="name"

@@ -6,6 +6,7 @@ type FormInputProps = {
   error?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   checked?: string;
+  register?: any;
 };
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -13,6 +14,7 @@ const FormInput: React.FC<FormInputProps> = ({
   error,
   checked,
   onChange,
+  register,
 }) => {
   return (
     <fieldset className={styles.field}>
@@ -26,6 +28,7 @@ const FormInput: React.FC<FormInputProps> = ({
           value="male"
           checked={checked === 'male'}
           onChange={onChange}
+          ref={register}
         />
         <label className={styles.label} htmlFor="male">
           male
@@ -40,6 +43,7 @@ const FormInput: React.FC<FormInputProps> = ({
           value="female"
           checked={checked === 'female'}
           onChange={onChange}
+          ref={register}
         />
         <label className={styles.label} htmlFor="female">
           female

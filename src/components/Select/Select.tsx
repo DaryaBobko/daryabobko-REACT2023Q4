@@ -1,25 +1,26 @@
 import styles from './Select.module.scss';
 
 type SelectProps = {
-  // onChange: () => void;
-  // value: string | number;
   name: string;
   placeholder?: string;
   label?: string;
+  register?: any;
+  error?: string;
 };
 
 const Select: React.FC<SelectProps> = ({
-  // onChange,
-  // value,
   placeholder,
   label,
   name,
+  register,
+  error,
 }) => {
   return (
     <div className={styles.field}>
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
+
       <input
         className={styles.input}
         name={name}
@@ -27,6 +28,7 @@ const Select: React.FC<SelectProps> = ({
         type="text"
         list="countries"
         placeholder={placeholder}
+        ref={register}
       />
 
       <datalist id="countries">
@@ -36,7 +38,7 @@ const Select: React.FC<SelectProps> = ({
         <option value="Germany" />
       </datalist>
 
-      {/* <div className={styles.error}>error</div> */}
+      <div className={styles.error}>{error}</div>
     </div>
   );
 };
