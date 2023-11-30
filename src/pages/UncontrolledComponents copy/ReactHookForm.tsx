@@ -1,11 +1,12 @@
+import { ChangeEvent, FormEvent, useState } from 'react';
+
 import FormInput from '../../components/FormInput/FormInput';
 import Button from '../../components/Button/Button';
-import styles from './UncontrolledComponents.module.scss';
 import RadioGroup from '../../components/RadioGroup/RadioGroup';
 import FormCheckbox from '../../components/FormCheckbox/FormCheckbox';
 import FileUploader from '../../components/FileUploader/FileUploader';
 import Select from '../../components/Select/Select';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import styles from './ReactHookForm.module.scss';
 
 const UncontrolledComponents: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -62,15 +63,6 @@ const UncontrolledComponents: React.FC = () => {
       ...prevErrors,
       file: '',
     }));
-
-    // Convert file to base64 and save to Redux store
-    // const reader = new FileReader();
-    // reader.onloadend = () => {
-    //   dispatch({ type: 'SAVE_FILE_TO_REDUX', payload: reader.result });
-    // };
-    // reader.readAsDataURL(selectedFile);
-
-    // setSelectedFile(file);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

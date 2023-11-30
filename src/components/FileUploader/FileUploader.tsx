@@ -1,19 +1,21 @@
+import { ChangeEvent } from 'react';
 import styles from './FileUploader.module.scss';
 
 type FileUploaderProps = {
-  // onChange: () => void;
-  // value: string | number;
+  name: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  // value: any;
   placeholder?: string;
   label?: string;
-  name: string;
+  error?: string;
 };
 
 const FileUploader: React.FC<FileUploaderProps> = ({
-  // onChange,
-  // value,
-  // placeholder,
+  onChange,
+  placeholder,
   label,
   name,
+  error,
 }) => {
   return (
     <div className={styles.field}>
@@ -21,8 +23,16 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         {label}
       </label>
 
-      <input type="file" id={name} name={name} />
-      {/* <div className={styles.error}>error</div> */}
+      <input
+        type="file"
+        placeholder={placeholder}
+        // value={value}
+        onChange={onChange}
+        id={name}
+        name={name}
+        // accept=".png, .jpeg, .jpg"
+      />
+      <div className={styles.error}>{error}</div>
     </div>
   );
 };

@@ -1,11 +1,13 @@
+import { ChangeEvent } from 'react';
 import styles from './FormInput.module.scss';
 
 type FormInputProps = {
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string | number;
   name: string;
   placeholder?: string;
   label?: string;
+  error?: string;
 };
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -14,6 +16,7 @@ const FormInput: React.FC<FormInputProps> = ({
   placeholder,
   label,
   name,
+  error,
 }) => {
   return (
     <div className={styles.field}>
@@ -28,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
         value={value}
         onChange={onChange}
       />
-      {/* <div className={styles.error}>error</div> */}
+      <div className={styles.error}>{error}</div>
     </div>
   );
 };
