@@ -9,17 +9,16 @@
   padding: 5rem 0 2rem;
 }
 
-.spinner {
-  width: 3.75rem;
-  height: 3.75rem;
-  margin: 5rem auto;
-  border: 0.25rem solid $color-gray-light;
-  border-top: 0.25rem solid $color-blue;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+.data {
+  margin: 50px auto;
+  width: 449px;
+  > div {
+    padding: 4px 0;
+    > span {
+      text-transform: uppercase;
+      color: $color-gray;
+    }
+  }
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+

@@ -9,9 +9,23 @@ import Select from '../../components/Select/Select';
 import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
 
 import styles from './UncontrolledComponents.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import {
+  decrement,
+  increment,
+  selectCount,
+  submitFormData,
+} from '../../formSlice';
+import { RootState } from '../../rootState';
+import { UserForm } from '../../models/Form';
 
 const UncontrolledComponents: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [userForm, setFormData] = useState<UserForm>({
     name: '',
     age: '',
     email: '',
@@ -49,7 +63,7 @@ const UncontrolledComponents: React.FC = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
-      ...formData,
+      ...userForm,
       [name]: value,
     });
     setErrors({
@@ -79,26 +93,26 @@ const UncontrolledComponents: React.FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    !containsUppercase(formData.name)
+    !containsUppercase(userForm.name)
       ? setErrors((prevErrors) => ({
           ...prevErrors,
           name: 'First letter must be uppercase',
         }))
       : null;
 
-    !validateNumber(formData.age)
+    !validateNumber(userForm.age)
       ? setErrors((prevErrors) => ({
           ...prevErrors,
           age: 'Must be only positive numbers',
         }))
       : null;
 
-    !validateEmail(formData.email)
+    !validateEmail(userForm.email)
       ? setErrors((prevErrors) => ({ ...prevErrors, email: 'Must be email' }))
       : null;
 
-    formData.password !== formData.secondPassword ||
-    !validatePassword(formData.password)
+    userForm.password !== userForm.secondPassword ||
+    !validatePassword(userForm.password)
       ? setErrors((prevErrors) => ({
           ...prevErrors,
           password:
@@ -106,14 +120,14 @@ const UncontrolledComponents: React.FC = () => {
         }))
       : null;
 
-    !formData.gender
+    !userForm.gender
       ? setErrors((prevErrors) => ({
           ...prevErrors,
           gender: 'Please select gender option',
         }))
       : null;
 
-    !formData.confirm
+    !userForm.confirm
       ? setErrors((prevErrors) => ({
           ...prevErrors,
           confirm: 'Must check confirm',
@@ -139,6 +153,8 @@ const UncontrolledComponents: React.FC = () => {
         return;
       }
     }
+
+    navigate('/daryabobko-REACT2023Q4');
   };
 
   const containsUppercase = (str: string) => /^[A-Z]/.test(str);
@@ -154,8 +170,14 @@ const UncontrolledComponents: React.FC = () => {
     );
   };
 
+  const count = useSelector((state: RootState) => selectCount(state));
+
   return (
     <div className={styles.container}>
+      <p>Count: {count}</p>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+
       <div>
         <CustomNavLink className={styles.button} to={'/daryabobko-REACT2023Q4'}>
           Home
@@ -165,7 +187,7 @@ const UncontrolledComponents: React.FC = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <FormInput
           name="name"
-          value={formData.name}
+          value={userForm.name}
           onChange={handleChange}
           placeholder={'enter name'}
           label="Name"
@@ -174,7 +196,7 @@ const UncontrolledComponents: React.FC = () => {
         <FormInput
           name="age"
           onChange={handleChange}
-          value={formData.age}
+          value={userForm.age}
           placeholder={'enter age'}
           label="Age"
           error={errors.age}
@@ -182,7 +204,7 @@ const UncontrolledComponents: React.FC = () => {
         <FormInput
           name="email"
           onChange={handleChange}
-          value={formData.email}
+          value={userForm.email}
           placeholder={'enter email'}
           label="Email"
           error={errors.email}
@@ -190,7 +212,7 @@ const UncontrolledComponents: React.FC = () => {
         <FormInput
           name="password"
           onChange={handleChange}
-          value={formData.password}
+          value={userForm.password}
           placeholder={'enter password'}
           label="Password"
           error={errors.password}
@@ -198,7 +220,7 @@ const UncontrolledComponents: React.FC = () => {
         <FormInput
           name="secondPassword"
           onChange={handleChange}
-          value={formData.secondPassword}
+          value={userForm.secondPassword}
           placeholder={'repeat password'}
           label="Confirm password"
         />
@@ -206,12 +228,12 @@ const UncontrolledComponents: React.FC = () => {
           name="gender"
           error={errors.gender}
           onChange={handleChange}
-          checked={formData.gender}
+          checked={userForm.gender}
         />
         <FormCheckbox
           label="accept T&C"
           name="confirm"
-          checked={formData.confirm}
+          checked={userForm.confirm}
           error={errors.confirm}
           onChange={handleChange}
         />
@@ -227,8 +249,11 @@ const UncontrolledComponents: React.FC = () => {
           name="Select country"
           placeholder="Select country"
         />
-
-        <Button type="submit" disabled={formHasError}>
+        <Button
+          type="submit"
+          disabled={formHasError}
+          onClick={() => dispatch(submitFormData(userForm))}
+        >
           Validate
         </Button>
       </form>
