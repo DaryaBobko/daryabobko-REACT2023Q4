@@ -15,15 +15,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="*" element={<NotFound />} />
-      <Route path="daryabobko-REACT2023Q4/" element={<Main />} />
+      <Route path="/" element={<Main />} />
       <Route
-        path="daryabobko-REACT2023Q4/uncontrolled-components"
+        path="/uncontrolled-components"
         element={<UncontrolledComponents />}
       />
-      <Route
-        path="daryabobko-REACT2023Q4/react-hook-form"
-        element={<ReactHookForm />}
-      />
+      <Route path="/react-hook-form" element={<ReactHookForm />} />
     </Route>
   )
 );

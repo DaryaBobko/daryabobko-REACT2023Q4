@@ -1,4 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import FormInput from '../../components/FormInput/FormInput';
 import Button from '../../components/Button/Button';
@@ -9,16 +11,7 @@ import Select from '../../components/Select/Select';
 import CustomNavLink from '../../components/CustomNavLink/CustomNavLink';
 
 import styles from './UncontrolledComponents.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
-import {
-  decrement,
-  increment,
-  selectCount,
-  submitFormData,
-} from '../../formSlice';
-import { RootState } from '../../rootState';
+import { submitFormData } from '../../formSlice';
 import { UserForm } from '../../models/Form';
 
 const UncontrolledComponents: React.FC = () => {
@@ -80,7 +73,6 @@ const UncontrolledComponents: React.FC = () => {
       file: '',
     }));
 
-    // Convert file to base64 and save to Redux store
     // const reader = new FileReader();
     // reader.onloadend = () => {
     //   dispatch({ type: 'SAVE_FILE_TO_REDUX', payload: reader.result });
@@ -154,7 +146,7 @@ const UncontrolledComponents: React.FC = () => {
       }
     }
 
-    navigate('/daryabobko-REACT2023Q4');
+    navigate('/');
   };
 
   const containsUppercase = (str: string) => /^[A-Z]/.test(str);
@@ -169,17 +161,10 @@ const UncontrolledComponents: React.FC = () => {
       str
     );
   };
-
-  const count = useSelector((state: RootState) => selectCount(state));
-
   return (
     <div className={styles.container}>
-      <p>Count: {count}</p>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-
       <div>
-        <CustomNavLink className={styles.button} to={'/daryabobko-REACT2023Q4'}>
+        <CustomNavLink className={styles.button} to={'/'}>
           Home
         </CustomNavLink>{' '}
         / uncontrolled-components

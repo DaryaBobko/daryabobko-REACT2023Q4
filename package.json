@@ -2,7 +2,7 @@
   "name": "vite-project",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rolling-scopes-school.github.io/daryabobko-REACT2023Q4/",
+  "homepage": "https://rolling-scopes-school.github.io/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",

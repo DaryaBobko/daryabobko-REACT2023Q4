@@ -22,5 +22,5 @@ export const validationSchema = Yup.object().shape({
   gender: Yup.string().required('Gender is required'),
   confirm: Yup.boolean().oneOf([true], 'You must confirm'),
   file: Yup.mixed().required('File is required'),
-  //   country: Yup.string().required('Country is required'),
+  country: Yup.string().required('Country is required'),
 });
