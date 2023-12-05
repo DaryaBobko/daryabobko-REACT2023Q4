@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import styles from './FormCheckbox.module.scss';
 
 type FormInputProps = {
-  name: string;
+  name?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   checked?: boolean;
@@ -15,7 +15,6 @@ const FormCheckbox: React.FC<FormInputProps> = ({
   name,
   checked,
   error,
-  register,
 }) => {
   return (
     <div className={styles.field}>
@@ -26,7 +25,6 @@ const FormCheckbox: React.FC<FormInputProps> = ({
           name={name}
           onChange={onChange}
           checked={checked}
-          ref={register}
         />
         <label htmlFor={name}>{label}</label>
       </div>

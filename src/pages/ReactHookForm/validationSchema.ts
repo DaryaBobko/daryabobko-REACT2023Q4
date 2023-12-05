@@ -1,26 +1,42 @@
 import * as Yup from 'yup';
 
+const characterErrorMessage = (str: string) => {
+  return `Your password must have at least 1 ${str} character`;
+};
+
 export const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required('Name is required')
-    .min(3, 'Name should be at least 3 characters')
-    .max(20, 'Name should not exceed 20 characters'),
-  age: Yup.number()
-    .required('Age is required')
-    .positive('Age should be a positive number')
-    .integer('Age should be an integer'),
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: Yup.string()
-    .required('Password is required')
-    .min(8, 'Password should be at least 8 characters'),
-  secondPassword: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'Passwords must match'
+  name: Yup.string().matches(
+    /^[A-Z]/,
+    'First name must start with an uppercase letter'
   ),
-  gender: Yup.string().required('Gender is required'),
-  confirm: Yup.boolean().oneOf([true], 'You must confirm'),
-  file: Yup.mixed().required('File is required'),
-  country: Yup.string().required('Country is required'),
+  age: Yup.number()
+    .integer('Enter an integer')
+    .positive('Must be a positive value')
+    .typeError('Field must be a number'),
+  email: Yup.string().email(),
+  password: Yup.string()
+    .min(4)
+    .max(32)
+    .required()
+    .matches(/[0-9]/, characterErrorMessage('digit'))
+    .matches(/[a-z]/, characterErrorMessage('lowercase'))
+    .matches(/[A-Z]/, characterErrorMessage('uppercase'))
+    .matches(/[^\w ]/g, characterErrorMessage('simbol')),
+  secondPassword: Yup.string()
+    .required()
+    .oneOf([Yup.ref('password')], 'Passwords must match'),
+  file: Yup.mixed()
+    .test(
+      'fileSize',
+      'File is too large',
+      (value) => !value || value[0].size <= 5000000
+    ) // 5MB
+    .test(
+      'fileType',
+      'Unsupported file format',
+      (value) => !value || ['image/jpeg', 'image/png'].includes(value[0].type)
+    ),
+
+  confirm: Yup.boolean().oneOf([true], 'Accept Terms & Conditions is required'),
+  gender: Yup.string().required('Choose gender'),
 });

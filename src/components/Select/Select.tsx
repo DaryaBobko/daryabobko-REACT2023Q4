@@ -1,19 +1,13 @@
 import styles from './Select.module.scss';
 
 type SelectProps = {
-  name: string;
+  name?: string;
   placeholder?: string;
   label?: string;
   error?: string;
 };
 
-const Select: React.FC<SelectProps> = ({
-  placeholder,
-  label,
-  name,
-  register,
-  error,
-}) => {
+const Select: React.FC<SelectProps> = ({ placeholder, label, name, error }) => {
   return (
     <div className={styles.field}>
       <label className={styles.label} htmlFor={name}>
@@ -27,7 +21,6 @@ const Select: React.FC<SelectProps> = ({
         type="text"
         list="countries"
         placeholder={placeholder}
-        ref={register}
       />
 
       <datalist id="countries">
