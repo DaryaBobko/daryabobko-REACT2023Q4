@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.container {
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid $color-gray-light;
+  padding: 5rem 0 2rem;
+}
+
+.data {
+  margin: 50px auto;
+  width: 449px;
+  > div {
+    padding: 4px 0;
+    > span {
+      text-transform: uppercase;
+      color: $color-gray;
+    }
+  }
+}
+
+

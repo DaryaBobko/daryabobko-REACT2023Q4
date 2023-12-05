@@ -1,19 +1,28 @@
-import { Component } from 'react';
-import './Button.scss';
+import styles from './Button.module.scss';
 
-type ButtonProps = {
-  onClick?: () => void;
+export type ButtonProps = {
   children: string;
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
+  disabled?: boolean;
 };
 
-class Button extends Component<ButtonProps> {
-  render() {
-    return (
-      <button type="button" className="button" onClick={this.props.onClick}>
-        {this.props.children}
-      </button>
-    );
-  }
-}
+const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  type = 'button',
+  disabled,
+}) => {
+  return (
+    <button
+      type={type}
+      className={styles.button}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+};
 
 export default Button;

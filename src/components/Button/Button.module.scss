@@ -19,4 +19,9 @@
     outline: none;
     box-shadow: none;
   }
+  &:disabled {
+    background-color: $color-gray-light;
+    border: 1px solid $color-gray-light;
+    color: $color-gray;
+  }
 }
