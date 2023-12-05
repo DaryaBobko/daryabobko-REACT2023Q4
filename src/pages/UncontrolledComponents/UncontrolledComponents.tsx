@@ -27,6 +27,7 @@ const UncontrolledComponents: React.FC = () => {
     confirm: false,
     gender: '',
     file: '',
+    country: '',
   });
 
   const [errors, setErrors] = useState({
@@ -38,6 +39,7 @@ const UncontrolledComponents: React.FC = () => {
     confirm: '',
     gender: '',
     file: '',
+    country: '',
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -146,7 +148,10 @@ const UncontrolledComponents: React.FC = () => {
       }
     }
 
-    navigate('/');
+    if (!formHasError) {
+      navigate('/');
+      dispatch(submitFormData(userForm));
+    }
   };
 
   const containsUppercase = (str: string) => /^[A-Z]/.test(str);
@@ -161,6 +166,7 @@ const UncontrolledComponents: React.FC = () => {
       str
     );
   };
+
   return (
     <div className={styles.container}>
       <div>
@@ -229,15 +235,13 @@ const UncontrolledComponents: React.FC = () => {
           error={errors.file}
           onChange={handleFileChange}
         />
-        <Select
-          label="Country"
-          name="Select country"
-          placeholder="Select country"
-        />
+        <Select label="Country" name="country" placeholder="Select country" />
         <Button
           type="submit"
           disabled={formHasError}
-          onClick={() => dispatch(submitFormData(userForm))}
+          onClick={() => {
+            handleSubmit;
+          }}
         >
           Validate
         </Button>

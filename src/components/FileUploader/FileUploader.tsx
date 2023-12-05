@@ -28,6 +28,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         onChange={onChange}
         id={name}
         name={name}
+        required
         // accept=".png, .jpeg, .jpg"
       />
       <div className={styles.error}>{error}</div>

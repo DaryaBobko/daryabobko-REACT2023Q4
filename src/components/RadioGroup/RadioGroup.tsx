@@ -26,6 +26,7 @@ const FormInput: React.FC<FormInputProps> = ({
           value="male"
           checked={checked === 'male'}
           onChange={onChange}
+          required
         />
         <label className={styles.label} htmlFor="male">
           male
@@ -40,6 +41,7 @@ const FormInput: React.FC<FormInputProps> = ({
           value="female"
           checked={checked === 'female'}
           onChange={onChange}
+          required
         />
         <label className={styles.label} htmlFor="female">
           female

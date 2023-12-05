@@ -21,6 +21,7 @@ const Select: React.FC<SelectProps> = ({ placeholder, label, name, error }) => {
         type="text"
         list="countries"
         placeholder={placeholder}
+        required
       />
 
       <datalist id="countries">

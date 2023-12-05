@@ -25,6 +25,7 @@ const FormCheckbox: React.FC<FormInputProps> = ({
           name={name}
           onChange={onChange}
           checked={checked}
+          required
         />
         <label htmlFor={name}>{label}</label>
       </div>

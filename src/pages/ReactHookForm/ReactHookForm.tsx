@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { submitFormData } from '../../formSlice';
 import { UserForm } from '../../models/Form';
+import FormInput from '../../components/FormInput/FormInput';
 
 function ReactHookForm() {
   const navigate = useNavigate();
@@ -46,12 +47,14 @@ function ReactHookForm() {
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.field}>
-          <label className={styles.label}>Name</label>
-          <input
+          {/* <label className={styles.label}>Name</label> */}
+          <FormInput {...register('name')} />
+
+          {/* <input
             className={styles.input}
             placeholder="name"
             {...register('name')}
-          />
+          /> */}
           <label className={styles.error}>{errors.name?.message}</label>
         </div>
 

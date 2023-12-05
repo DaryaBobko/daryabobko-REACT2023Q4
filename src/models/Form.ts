@@ -7,4 +7,5 @@ export type UserForm = {
   confirm: boolean;
   gender: string;
   file: string;
+  country: string;
 };
